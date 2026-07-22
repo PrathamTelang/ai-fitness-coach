@@ -1,0 +1,37 @@
+# Virtual Environments
+env/
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+
+# Environment
+.env
+
+# VSCode
+.vscode/
+
+# Pytest
+.pytest_cache/
+
+# Virtual Environments
+env/
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+
+# Environment
+.env
+
+# VSCode
+.vscode/
+
+# Pytest
+.pytest_cache/
