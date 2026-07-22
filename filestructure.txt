@@ -1,0 +1,74 @@
+forma-ai/                               # (Or kinetix-ai) Project Root
+├── .github/                            # CI/CD Workflows & PR Templates
+│   └── workflows/
+│       ├── frontend-ci.yml
+│       └── backend-ci.yml
+├── docs/                               # Architecture & API Specs
+│   ├── API.md                          # JSON Request/Response Contracts
+│   └── ARCHITECTURE.md                 # System diagrams & database specs
+│
+├── apps/                               # Applications Directory
+│   ├── web/                            # 🔷 PRATHAM'S DOMAIN (Next.js Stack)
+│   │   ├── src/
+│   │   │   ├── app/                    # Next.js App Router
+│   │   │   │   ├── (auth)/             # Auth Route Group
+│   │   │   │   │   ├── login/page.tsx
+│   │   │   │   │   └── register/page.tsx
+│   │   │   │   ├── (dashboard)/        # Protected App Routes
+│   │   │   │   │   ├── dashboard/page.tsx
+│   │   │   │   │   ├── workout/page.tsx
+│   │   │   │   │   ├── analytics/page.tsx
+│   │   │   │   │   └── history/page.tsx
+│   │   │   │   ├── api/                # Next.js API Routes (if needed)
+│   │   │   │   ├── layout.tsx
+│   │   │   │   └── page.tsx            # Landing Page
+│   │   │   ├── components/             # Reusable React Components
+│   │   │   │   ├── ui/                 # shadcn/ui components (Button, Card, Dialog)
+│   │   │   │   ├── workout/            # Live Workout UI
+│   │   │   │   │   ├── VideoFeed.tsx
+│   │   │   │   │   ├── RepCounter.tsx
+│   │   │   │   │   └── FeedbackOverlay.tsx
+│   │   │   │   └── dashboard/          # Analytics & Calendar Widgets
+│   │   │   ├── hooks/                  # Custom Hooks (e.g., useWebSocket.ts)
+│   │   │   ├── lib/                    # Supabase/Prisma Client & Utilities
+│   │   │   └── types/                  # TypeScript Interfaces
+│   │   ├── prisma/                     # Database ORM
+│   │   │   └── schema.prisma           # Postgres Schema & Models
+│   │   ├── public/                     # Static assets & images
+│   │   ├── .env.local                  # Next.js Environment Variables
+│   │   ├── tailwind.config.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   │
+│   └── ai-service/                     # 🐍 TAMESH'S DOMAIN (Python & FastAPI)
+│       ├── app/
+│       │   ├── api/                    # REST API Endpoints
+│       │   │   ├── v1/
+│       │   │   │   ├── workouts.py     # Workout save/fetch routes
+│       │   │   │   └── users.py        # Weight/step count habits routes
+│       │   │   └── router.py
+│       │   ├── core/                   # Service Configuration
+│       │   │   ├── config.py           # App settings & env loading
+│       │   │   └── security.py
+│       │   ├── engine/                 # 🧠 Core Computer Vision Pipeline
+│       │   │   ├── pose.py             # MediaPipe setup & landmark parser
+│       │   │   ├── kinematics.py       # Angle math formulas (atan2)
+│       │   │   ├── exercises/          # Exercise State Machines
+│       │   │   │   ├── squat.py        # Squat detection & depth logic
+│       │   │   │   ├── pushup.py       # Push-up logic
+│       │   │   │   └── jumping_jack.py
+│       │   │   └── feedback.py         # Posture correction rule engine
+│       │   ├── websockets/             # Live Streaming Layer
+│       │   │   └── stream_handler.py   # Receive frame -> Infer -> Send JSON
+│       │   ├── schemas/                # Pydantic Schemas
+│       │   │   └── telemetry.py        # Frame telemetry data models
+│       │   └── main.py                 # FastAPI Application Entrypoint
+│       ├── scripts/
+│       │   └── vision_test.py          # Day 1 Local CV2 Testing Script
+│       ├── .venv                        # Python Environment Variables
+│       ├── Dockerfile                  # Deployment container spec
+│       └── requirements.txt            # Python dependencies
+│
+├── docker-compose.yml                  # Spins up local PostgreSQL + FastAPI + Next.js
+├── .gitignore
+└── README.md                           # Main GitHub Project Documentation
