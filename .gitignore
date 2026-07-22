@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# environment
+.env
+.env.local
+.env.*
+
+# logs
+*.log
+
+# build
+.next/
+dist/
+out/
+
+# turbo
+.turbo/
+
+# OS
+.DS_Store
+Thumbs.db
