@@ -10,11 +10,13 @@ app = FastAPI(titile="AI Fitness Coach")
 async def root():
     return {"message": "Hello World"}
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+
     
 @app.get("/health")
 def health_check():
     return{ "message":status.HTTP_200_OK ,"content ":"reaady to work " }
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
     
