@@ -1,11 +1,16 @@
+print("🚨 THE SCRIPT IS SUCCESSFULLY RUNNING! 🚨")
 import cv2
 from app.engine.pose import PoseEngine
 
 def run_local_test():
+    print("1. Initializing AI Engine (MediaPipe)...")
     engine = PoseEngine()
-    cap = cv2.VideoCapture(0) # Activates primary webcam
+    
+    print("2. Connecting to Webcam (Bypassing Windows Bug)...")
+    # THE MAGIC FIX: Add cv2.CAP_DSHOW to prevent the Windows freeze
+    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW) 
 
-    print("Starting webcam... Press 'q' to quit.")
+    print("3. Starting webcam... Press 'q' to quit.")
 
     while cap.isOpened():
         success, frame = cap.read()
@@ -33,5 +38,6 @@ def run_local_test():
     cv2.destroyAllWindows()
 
 # THIS IS THE CRITICAL PART. IT MUST BE AT THE VERY BOTTOM.
+# MUST BE FLUSH AGAINST THE LEFT WALL
 if __name__ == "__main__":
     run_local_test()
