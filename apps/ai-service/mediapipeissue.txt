@@ -1,0 +1,5 @@
+pip install mediapipe==0.10.11 #use this version for python 3.8.10
+pip uninstall mediapipe protobuf -y
+pip install protobuf==3.20.3
+
+python -c "import mediapipe; print('✅ MediaPipe is OK')" # for  
