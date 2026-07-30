@@ -4,4 +4,4 @@ pip install protobuf==3.20.3
 
 python -c "import mediapipe; print('✅ MediaPipe is OK')" # for  
 
-python -m scripts.vision_test  # for testing 
+python -m scripts.vision_test  # for testing the 
