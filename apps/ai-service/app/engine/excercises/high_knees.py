@@ -1,12 +1,12 @@
 import math
 
-class LungeTracker:
-    def __init__(self, target_reps=10, weight_type="body_weight", weight_amount=0):
-        # Independent counters for each leg
+class HighKneesTracker:
+    def __init__(self, target_reps=20, weight_type="body_weight", weight_amount=0):
+        # Independent counters for each leg. Target is usually higher for cardio!
         self.counter_left = 0
-        self.stage_left = "up"
+        self.stage_left = "down"
         self.counter_right = 0
-        self.stage_right = "up"
+        self.stage_right = "down"
         
         self.feedback = "Good Form"
         self.target_reps = target_reps
@@ -27,56 +27,54 @@ class LungeTracker:
         self.feedback = "Good Form"
         left_angle, right_angle = 0, 0
         
-        # ---------------- LEFT LEG LUNGE ----------------
-        req_left = ['LEFT_HIP', 'LEFT_KNEE', 'LEFT_ANKLE']
+        # ---------------- LEFT KNEE LOGIC ----------------
+        req_left = ['LEFT_SHOULDER', 'LEFT_HIP', 'LEFT_KNEE']
         if all(point in landmarks for point in req_left):
             left_angle = self.calculate_angle(
-                landmarks['LEFT_HIP'], landmarks['LEFT_KNEE'], landmarks['LEFT_ANKLE']
+                landmarks['LEFT_SHOULDER'], landmarks['LEFT_HIP'], landmarks['LEFT_KNEE']
             )
             
-            # Standing back up
+            # Leg is straight down
             if left_angle > 150:
+                if self.stage_left == "up":
+                    self.stage_left = "down"
+
+            # Knee driven high
+            elif left_angle < 100:
                 if self.stage_left == "down":
                     self.stage_left = "up"
                     self.counter_left += 1
-                    print(f"🦵 LEFT LUNGE: {self.counter_left}/{self.target_reps}")
-                elif self.stage_left == "halfway":
-                    self.stage_left = "up"
-                    self.feedback = "DROP KNEE LOWER!"
-
-            # Deep lunge (knee at ~90 degrees)
-            elif left_angle < 100:
-                self.stage_left = "down"
+                    print(f"🏃 LEFT KNEE: {self.counter_left}/{self.target_reps}")
                 
-            # Cheat Zone (Shallow lunge)
-            elif 100 <= left_angle <= 135 and self.stage_left == "up":
+            # Cheat Zone (Shallow knee drive)
+            elif 100 <= left_angle <= 135 and self.stage_left == "down":
                 self.stage_left = "halfway"
+                self.feedback = "DRIVE KNEES HIGHER!"
 
-        # ---------------- RIGHT LEG LUNGE ----------------
-        req_right = ['RIGHT_HIP', 'RIGHT_KNEE', 'RIGHT_ANKLE']
+        # ---------------- RIGHT KNEE LOGIC ----------------
+        req_right = ['RIGHT_SHOULDER', 'RIGHT_HIP', 'RIGHT_KNEE']
         if all(point in landmarks for point in req_right):
             right_angle = self.calculate_angle(
-                landmarks['RIGHT_HIP'], landmarks['RIGHT_KNEE'], landmarks['RIGHT_ANKLE']
+                landmarks['RIGHT_SHOULDER'], landmarks['RIGHT_HIP'], landmarks['RIGHT_KNEE']
             )
             
             if right_angle > 150:
+                if self.stage_right == "up":
+                    self.stage_right = "down"
+
+            elif right_angle < 100:
                 if self.stage_right == "down":
                     self.stage_right = "up"
                     self.counter_right += 1
-                    print(f"🦵 RIGHT LUNGE: {self.counter_right}/{self.target_reps}")
-                elif self.stage_right == "halfway":
-                    self.stage_right = "up"
-                    self.feedback = "DROP KNEE LOWER!"
-
-            elif right_angle < 100:
-                self.stage_right = "down"
+                    print(f"🏃 RIGHT KNEE: {self.counter_right}/{self.target_reps}")
                 
-            elif 100 <= right_angle <= 135 and self.stage_right == "up":
+            elif 100 <= right_angle <= 135 and self.stage_right == "down":
                 self.stage_right = "halfway"
+                self.feedback = "DRIVE KNEES HIGHER!"
 
         # ---------------- SET COMPLETION ----------------
         if self.counter_left >= self.target_reps and self.counter_right >= self.target_reps and not self.set_complete:
-            print("🎉 LUNGES COMPLETE! Legs of steel!")
+            print("🎉 HIGH KNEES COMPLETE! Incredible cardio pace!")
             self.set_complete = True
 
         return {
@@ -84,4 +82,4 @@ class LungeTracker:
             "right": {"reps": self.counter_right, "stage": self.stage_right, "angle": int(right_angle)},
             "feedback": self.feedback,
             "set_complete": self.set_complete
-        }   
+        }
